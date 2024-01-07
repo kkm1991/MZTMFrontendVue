@@ -18,14 +18,16 @@ const router = createRouter({
 
       beforeEnter:(to,from,next) =>{
         const authstore=useCounterStore()
-        if(from.name=='Login'){
+        if(from.name==='Login'){
          next();
         }
         else{
-          if(!authstore.loginstatus==true){
+          if(!authstore.loginstatus){
             next({name:'Login'})
           }
-          next()
+          else{
+            next()
+          }
            
         }
      }
@@ -39,19 +41,43 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
       beforeEnter:(to,from,next) =>{
         const authstore=useCounterStore()
-        if(from.name=='Login'){
+        if(from.name==='Login'){
          next();
         }
         else{
-          if(!authstore.loginstatus==true){
+          if(!authstore.loginstatus){
             next({name:'Login'})
           }
-          next()
-           
+          else{
+            next()
+          }
+          
         }
      }
 
+    },
+    {
+      path:"/register",
+      name:"Register",
+      component:()=>import('../views/RegisterPage.vue'),
+
+      beforeEnter:(to,from,next) =>{
+        const authstore=useCounterStore()
+        if(from.name==='Login'){
+         next();
+        }
+        else{
+          if(!authstore.loginstatus){
+            next({name:'Login'})
+          }
+          else{
+            next()
+          }
+          
+        }
+     }
     }
+
   ]
 })
 

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg shadow-sm mx-2 p-3 navbar-custom" v-if="authstore.loginstatus">
+  <nav class="navbar navbar-expand-lg shadow-sm mx-2 p-3   logoutpos" v-if="authstore.loginstatus">
     <a class="navbar-brand" href="#"
       ><img
         alt="Vue logo"
@@ -27,25 +27,36 @@
         <li class="nav-item">
           <RouterLink to="/about" class="nav-link">About</RouterLink>
         </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <button class="btn btn-outline-danger" @click="authstore.logout">Logout</button>
+        <li class="nav-item dropdown  ">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{authstore.loginData.userInfo.name}}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Profile Edit</a></li>
+             
+            <li><hr class="dropdown-divider"></li>
+            <li><button class="btn col-11 btn-light text-dark m-1 " v-if="authstore.loginData.userInfo.role=='admin'" @click="router.push('/register')">Register</button></li>
+            <li><button class="btn col-11 btn-outline-danger m-1 " @click="authstore.logout">Logout</button></li>
+          </ul>
         </li>
+         
       </ul>
     </div>
+   
   </nav>
+  
 </template>
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
 import { useCounterStore } from "@/stores/counter";
-
+import { useRouter } from "vue-router";
+const router=useRouter()
 const authstore=useCounterStore()
 </script>
 
 <style lang="scss" scoped>
-.navbar-nav {
-  margin-left: auto;
+.logoutpos {
+  margin-left:auto;
 }
 </style>
