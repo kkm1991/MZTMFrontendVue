@@ -79,12 +79,7 @@ import { useCounterStore } from '@/stores/counter';
 import axios from 'axios';
 const pedStore=usepedStore()
 const authstore=useCounterStore()
-//dropdown ထဲ ဌာနစာရင်းထဲ့ရန်
-onMounted(() => {
-  axios.get("http://localhost:8000/api/list/deps").then((res)=>{
-      pedStore.loadpdeps(res.data);
-  });
-})
+ 
 
 const registerData=reactive({
   email:"",
