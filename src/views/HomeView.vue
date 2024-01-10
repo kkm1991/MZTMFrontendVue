@@ -3,6 +3,7 @@ import { useCounterStore } from "@/stores/counter";
 import { useStaffStore } from "@/stores/staffstore";
 import { usepedStore } from "@/stores/pedStore";
 import addStaff from "@/components/addStaff.vue";
+ 
 import { ref, onMounted } from "vue";
 import axios from "axios";
 const authstore = useCounterStore();
@@ -73,19 +74,35 @@ const changestatus = (staffid, status) => {
     });
 };
 //change status end
+
+//delete start
+const deletestaff=(staffid)=>{
+   
+  console.log(staffid)
+  axios.get('http://127.0.0.1:8000/api/staffs/delete',
+  {
+    params:{id:staffid},
+    headers:{
+    Authorization:`Bearer ${authstore.loginData.token}`,
+    Accept:"application/json"
+  }}).then((res)=>{
+    staffstore.loadstaffslist(res.data)
+
+  })
+}
+
 </script>
 
 <template>
   <main class="m-1">
     <addStaff/>
-    <table class="table table-hover table-transparent">
+    
+      <table class="table table-hover table-transparent text-center  ">
       <thead class="">
         <tr>
           <th scope="col">#</th>
           <th scope="col">Photo</th>
           <th scope="col">Name</th>
-           
-         
           <th scope="col">NRC</th>
           <th scope="col">Working Date</th>
           <th scope="col">Education</th>
@@ -93,21 +110,18 @@ const changestatus = (staffid, status) => {
           <th scope="col">Position</th>
           <th scope="col">Basic Salary</th>
           <th scope="col">Debt</th>
-          
-         
           <th scope="col">Status</th>
+
         </tr>
       </thead>
-      <tbody>
+      <tbody >
         <tr
           v-for="(staff, index) in staffstore.state.stafflist"
-          :key="staff.id"
+          :key="staff.id"  
         >
           <td>{{ staff.id }}</td>
-          <td><img :src="'http://127.0.0.1:8000/storage/uploads/'+staff.image" style="width: 100px; height: 125px;" alt=""></td>
+          <td><img class="rounded-circle" :src="'http://127.0.0.1:8000/storage/uploads/'+staff.image" style="width: 100px; height: 125px;" alt=""></td>
           <td>{{ staff.name }}</td>
-          
-         
           <td>{{ staff.nrc }}</td>
           <td>{{ staff.start_working_date }}</td>
           <td>{{ staff.educationtitle }}</td>
@@ -119,20 +133,28 @@ const changestatus = (staffid, status) => {
           
           <td class="text-center">
             <button
-              class="btn btn-success"
+              class="btn btn-light"
               v-if="staff.active_status"
               @click="changestatus(staff.id, !staff.active_status)"
-            ></button>
+            ><i class="fa-solid fa-user text-success"></i></button>
             <button
-              class="btn btn-danger"
+              class="btn btn-light"
               v-else="staff.active_status"
               @click="changestatus(staff.id, !staff.active_status)"
-            ></button>
+            ><i class="fa-solid fa-user text-danger"></i></button>
+          </td >
+               
+          <td >
+            <button class="btn btn-light me-2"  v-if="authstore.loginData.userInfo.role=='admin'" @click="deletestaff(staff.id)"><i class="fa-solid fa-trash text-danger"></i></button>
+            <button class="btn btn-light"  v-if="authstore.loginData.userInfo.role=='admin'" @click="staffstore.toeditstaff(staff)"><i class="fa-solid fa-pen text-primary"></i></button>
           </td>
         </tr>
       </tbody>
     </table>
+    
   </main>
 </template>
 
-<style></style>
+<style>
+   
+</style>
