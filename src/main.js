@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.js' 
 import '@fortawesome/fontawesome-free/css/all.min.css'
  
+ 
+ 
 
 import '../src/assets/custom.css'
  
@@ -19,7 +21,7 @@ const app = createApp(App)
  
 app.use(createPinia())
 app.use(router)
-
+ 
  
  
  

@@ -3,13 +3,35 @@ import { useCounterStore } from "@/stores/counter";
 import { useStaffStore } from "@/stores/staffstore";
 import { usepedStore } from "@/stores/pedStore";
 import addStaff from "@/components/addStaff.vue";
+import Pagination from "@/components/Pagination.vue";
  
-import { ref, onMounted } from "vue";
+import { ref, onMounted,computed,watch } from "vue";
 import axios from "axios";
 const authstore = useCounterStore();
 const staffstore = useStaffStore();
 const pedStore=usepedStore();
 var key = ref("");
+
+
+
+// paginate start
+const itemsPerPage=ref(10);
+const currentPage=ref(1);
+const totalPages = ref(1);
+const paginatedStaffList=computed(()=>{
+  const startIndex=(currentPage.value-1)*itemsPerPage.value
+  const endIndex = startIndex + itemsPerPage.value;
+  return staffstore.state.stafflist.slice(startIndex,endIndex)
+})
+watch(() => staffstore.state.stafflist, () => {
+  totalPages.value = Math.ceil(staffstore.state.stafflist.length / itemsPerPage.value);
+});
+const goToPage=(page)=>{
+  if(page >= 1 && page <= totalPages.value){
+    currentPage.value=page;
+  }
+}
+// paginate end
 
 //onMounted start
 onMounted(() => {
@@ -61,7 +83,7 @@ const changestatus = (staffid, status) => {
     staff_id: staffid,
     key: key,
   };
-  console.log(statusdata);
+  
   axios
     .post("http://127.0.0.1:8000/api/staffs/status", statusdata, {
       headers: {
@@ -116,7 +138,7 @@ const deletestaff=(staffid)=>{
       </thead>
       <tbody >
         <tr
-          v-for="(staff, index) in staffstore.state.stafflist"
+          v-for="(staff, index) in paginatedStaffList"
           :key="staff.id"  
         >
           <td>{{ staff.id }}</td>
@@ -151,7 +173,7 @@ const deletestaff=(staffid)=>{
         </tr>
       </tbody>
     </table>
-    
+    <pagination :currentPage="currentPage" :totalPages="totalPages" :goToPage="goToPage" />
   </main>
 </template>
 

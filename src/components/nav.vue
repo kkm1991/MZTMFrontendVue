@@ -25,7 +25,7 @@
           <RouterLink to="/home" class="nav-link">Home</RouterLink>
         </li>
         <li class="nav-item">
-          <RouterLink to="/about" class="nav-link">About</RouterLink>
+          <RouterLink to="/about" class="nav-link">Salary Payment</RouterLink>
         </li>
         <li class="nav-item dropdown  ">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
