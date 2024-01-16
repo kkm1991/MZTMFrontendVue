@@ -9,8 +9,6 @@ export const usePaymentStore = defineStore('payment', () => {
         staffpaymentlist:[]
     })
 
-    
-
     const loadpaymentlist=()=>{
         axios.get("http://127.0.0.1:8000/api/staffs/payment",{
             params:{key:1},

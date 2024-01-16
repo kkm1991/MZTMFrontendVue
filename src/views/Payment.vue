@@ -1,7 +1,7 @@
 <template>
    
-   <div class=" justify-content-center fs-5">
-    <div class="row shadow-sm my-2 p-5 fw-bold">
+   <div class=" justify-content-center ">
+    <div class="row shadow-sm my-2 p-3 fw-bold">
       <div class="col-1">ID</div>
       <div class="col-2">Name</div>
       <div class="col-2">Deparment</div>
@@ -11,15 +11,16 @@
       <div class="col-1">Reservation</div>
       <div class="col-1">Pay</div>
     </div>
-    <div class="row shadow-sm  my-2 p-5" v-for="(staff,index) in paymentStore.state.staffpaymentlist" :key="staff.id">
+    <div class="row shadow-sm  my-2 p-3" v-for="(staff,index) in paymentStore.state.staffpaymentlist" :key="staff.id">
       <div class="col-1">{{ staff.id }}</div>
       <div class="col-2">{{ staff.name }}</div>
       <div class="col-2">{{ staff.deptitle }}</div>
       <div class="col-2">{{ staff.positiontitle }}</div>
       <div class="col-2">{{ staff.basic_salary }}</div>
       <div class="col-1">{{ staff.debt }}</div>
-      <div class="col-1"><addReservation/></div>
-      <div class="col-1"><button class="btn btn-light"><i class="fa-regular fa-square-plus fs-2"></i></button></div>
+      <!-- addReservation component ဆီကို props နဲ့ staffid ကိုပေးလိုက်တယ် ဟိုဖက်က defineProps နဲ့ပြန်ဖမ်းရမယ် -->
+      <div class="col-1"><addReservation :staffid="staff.id"/></div>
+      <div class="col-1"><button class="btn btn-light"><i class="fa-regular text-success fa-square-plus fs-2"></i></button></div>
     </div>
    </div>
     

@@ -119,7 +119,7 @@ const deletestaff=(staffid)=>{
   <main class="m-1">
     <addStaff/>
     
-      <table class="table table-hover table-transparent text-center  ">
+      <table class="table table-hover table-transparent text-center     ">
       <thead class="">
         <tr>
           <th scope="col">#</th>
@@ -140,20 +140,21 @@ const deletestaff=(staffid)=>{
         <tr
           v-for="(staff, index) in paginatedStaffList"
           :key="staff.id"  
+          
         >
-          <td>{{ staff.id }}</td>
-          <td><img class="rounded-circle" :src="'http://127.0.0.1:8000/storage/uploads/'+staff.image" style="width: 100px; height: 125px;" alt=""></td>
-          <td>{{ staff.name }}</td>
-          <td>{{ staff.nrc }}</td>
-          <td>{{ staff.start_working_date }}</td>
-          <td>{{ staff.educationtitle }}</td>
-          <td>{{ staff.deptitle }}</td>
-          <td>{{ staff.positiontitle }}</td>
-          <td>{{ staff.basic_salary }}</td>
-          <td>{{ staff.debt }}</td>
+          <td class="align-middle" >{{ staff.id }}</td>
+          <td class="align-middle"><img class="rounded-circle" :src="'http://127.0.0.1:8000/storage/uploads/'+staff.image" style="width: 100px; height: 125px;" alt=""></td>
+          <td class="align-middle">{{ staff.name }}</td>
+          <td class="align-middle">{{ staff.nrc }}</td>
+          <td class="align-middle">{{ staff.start_working_date }}</td>
+          <td class="align-middle">{{ staff.educationtitle }}</td>
+          <td class="align-middle">{{ staff.deptitle }}</td>
+          <td class="align-middle">{{ staff.positiontitle }}</td>
+          <td class="align-middle">{{ staff.basic_salary }}</td>
+          <td class="align-middle">{{ staff.debt }}</td>
         
           
-          <td class="text-center">
+          <td class="align-middle"  >
             <button
               class="btn btn-light"
               v-if="staff.active_status"
@@ -166,7 +167,7 @@ const deletestaff=(staffid)=>{
             ><i class="fa-solid fa-user text-danger"></i></button>
           </td >
                
-          <td >
+          <td class="align-middle" >
             <button class="btn btn-light me-2"  v-if="authstore.loginData.userInfo.role=='admin'" @click="deletestaff(staff.id)"><i class="fa-solid fa-trash text-danger"></i></button>
             <button class="btn btn-light"  v-if="authstore.loginData.userInfo.role=='admin'" @click="staffstore.toeditstaff(staff)"><i class="fa-solid fa-pen text-primary"></i></button>
           </td>
