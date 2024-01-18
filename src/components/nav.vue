@@ -33,7 +33,8 @@
           </a>
           <ul class="dropdown-menu mx-3 ">
             <li><a class="dropdown-item my-3 " href="#">Monthly Reservation</a></li>
-            <li><a class="dropdown-item my-3 " href="#">Default Reservation</a></li>
+            <router-link class="dropdown-item my-3" to="/defaultReservation">Default Reservation</router-link>
+            
           </ul>
         </li>
         <li class="nav-item dropdown  mx-3   ">

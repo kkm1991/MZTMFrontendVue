@@ -197,11 +197,10 @@
 </template>
 
 <script setup>
-import { usePaymentStore } from "@/stores/paymentstore";
-
- 
- 
+import { usePaymentStore } from "@/stores/paymentstore"; 
 import {useReservationStore} from "@/stores/reservationStore"
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 
 //stores
 const paymentStore = usePaymentStore();
@@ -212,11 +211,7 @@ const reservationStore=useReservationStore();
 //props ပြန်ဖမ်းတာ
 const staffid = defineProps(['staffid']);
  
-
-const save11=()=>{
-  
-  reservationStore.noti("Saved")
-}
+ 
 </script>
 
 <style lang="scss" scoped></style>

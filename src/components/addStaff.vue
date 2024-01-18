@@ -3,7 +3,8 @@
     <button class="btn btn-light" type="button" @click="cleardata" data-bs-target="#collapseExample"
       aria-expanded="false" aria-controls="collapseExample">
       + Add new staff
-    </button>
+    </button> 
+    
     <!-- iscollapsed အပေါ်မူတည်ပြီးအဖွင့်အပိတ်လုပ်ထားတယ် -->
     <div id="collapseExample" :class="{ collapse: staffstore.iscollapsed }">
       <div class="card card-body">
@@ -201,6 +202,8 @@ const togglecollapse = () => {
     authstore.errornoti("Please Check , some information are required !");
   }
 };
+
+ 
 
 const closecollapse=()=>{
   if(staffstore.iscollapsed==false){

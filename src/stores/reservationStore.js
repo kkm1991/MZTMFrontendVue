@@ -2,13 +2,16 @@ import { ref, reactive } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
 import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
 import axios from "axios";
 import { useCounterStore } from "@/stores/counter";
-import "vue3-toastify/dist/index.css";
+
 export const useReservationStore = defineStore('ReservationStore', () => {
     const authstore=useCounterStore();
     const reservationtoggle = ref(true)
-    
+    const defaultReservation=reactive({
+      defaultlist:[]
+    });
     const reservationData = reactive({
         rareCost: "",
         bonus: "",
@@ -60,10 +63,14 @@ const addReservation=()=>{
     })
      
   }
+  
+
+
   const noti=(message)=>{
     authstore.notification(res.message)
   }
 
+  //staffid ကို Payment.vue ကနေ  props နဲ့ addReservation.vue component ပေးလိုက်တာကို const staffid = defineProps(['staffid']); ဖမ်းပြီး ဒီ method မှာယူသုံး
   const callReservation=(staffid)=>{
     
     axios.get("http://127.0.0.1:8000/api/reservation/load/monthly",{
@@ -73,17 +80,21 @@ const addReservation=()=>{
         Accept:"application/json"
       }
     }).then((res)=>{
-        // Assign staff_id
+        
        
         if(res.data){
             Object.assign(reservationData,res.data)
+            console.log(res.data)
         }
-        console.log(res.data)
+        else{
+
+        }
+       // Assign staff_id
         reservationData.staff_id=staffid
        
     })
     
   }
 
-    return { reservationtoggle, reservationData, clearData,addReservation , callReservation ,noti }
+    return { reservationtoggle, reservationData, clearData,addReservation , callReservation ,noti ,defaultReservation}
 })

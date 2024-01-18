@@ -31,10 +31,13 @@
   import { onMounted } from 'vue';
   import { usePaymentStore } from '@/stores/paymentstore';
   import { useCounterStore } from '@/stores/counter';
+  import { useReservationStore } from '@/stores/reservationStore';
   import addReservation from '@/components/addReservation.vue'
   const paymentStore=usePaymentStore()
   const authstore=useCounterStore()
+  const reservationStore=useReservationStore()
   onMounted(() => {
+    reservationStore.reservationtoggle=true
     paymentStore.loadpaymentlist()
   })
 

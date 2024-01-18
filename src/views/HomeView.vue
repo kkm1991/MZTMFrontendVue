@@ -11,18 +11,39 @@ const authstore = useCounterStore();
 const staffstore = useStaffStore();
 const pedStore=usepedStore();
 var key = ref("");
+const searchname=ref("")
 
+// //searchbox start
+// const searchbyname=computed(()=>{
+//   const filter=searchname.toUpperCase();
+//   return staffstore.state.stafflist.filter(row=>{
+//     const textval=row.name.toUpperCase();
+//     return textval.indexOf(filter)>-1
+//   })
+// })
+// //searchbox end
 
 
 // paginate start
 const itemsPerPage=ref(10);
 const currentPage=ref(1);
 const totalPages = ref(1);
-const paginatedStaffList=computed(()=>{
-  const startIndex=(currentPage.value-1)*itemsPerPage.value
+// const paginatedStaffList=computed(()=>{
+//   const startIndex=(currentPage.value-1)*itemsPerPage.value
+//   const endIndex = startIndex + itemsPerPage.value;
+//   return staffstore.state.stafflist.slice(startIndex,endIndex)
+// })
+
+const paginatedAndFilteredStaffList = computed(() => {
+  const startIndex = (currentPage.value - 1) * itemsPerPage.value;
   const endIndex = startIndex + itemsPerPage.value;
-  return staffstore.state.stafflist.slice(startIndex,endIndex)
-})
+  return staffstore.state.stafflist.filter(row => {
+    const filter = searchname.value.toUpperCase();
+    const textval = row.name.toUpperCase();
+    return textval.indexOf(filter) > -1;
+  }).slice(startIndex, endIndex);
+});
+
 watch(() => staffstore.state.stafflist, () => {
   totalPages.value = Math.ceil(staffstore.state.stafflist.length / itemsPerPage.value);
 });
@@ -32,6 +53,8 @@ const goToPage=(page)=>{
   }
 }
 // paginate end
+
+
 
 //onMounted start
 onMounted(() => {
@@ -117,8 +140,11 @@ const deletestaff=(staffid)=>{
 
 <template>
   <main class="m-1">
-    <addStaff/>
-    
+    <div class="row">
+      <div class="col"> <addStaff/></div>
+      <div class="col-3 d-flex  text-end me-4 align-items-center" v-if="staffstore.iscollapsed"><i class="fa-solid fa-magnifying-glass fs-5 mx-2 "></i> <input type="text" class="form-control " v-model="searchname" name="" id=""></div>
+       
+    </div>
       <table class="table table-hover table-transparent text-center     ">
       <thead class="">
         <tr>
@@ -138,7 +164,7 @@ const deletestaff=(staffid)=>{
       </thead>
       <tbody >
         <tr
-          v-for="(staff, index) in paginatedStaffList"
+          v-for="(staff, index) in paginatedAndFilteredStaffList"
           :key="staff.id"  
           
         >

@@ -77,6 +77,28 @@ const router = createRouter({
         }
      }
     }
+    ,
+    {
+      path:"/defaultReservation",
+      name:"DefaultReservation",
+      component:()=>import('../views/DefaultReservation.vue'),
+      beforeEnter:(to,from,next) =>{
+        const authstore=useCounterStore()
+        if(from.name==='Login'){
+         next();
+        }
+        else{
+          if(!authstore.loginstatus){
+            next({name:'Login'})
+          }
+          else{
+            next()
+          }
+          
+        }
+     }
+
+    }
 
   ]
 })
