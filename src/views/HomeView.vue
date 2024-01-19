@@ -11,7 +11,7 @@ const authstore = useCounterStore();
 const staffstore = useStaffStore();
 const pedStore=usepedStore();
 var key = ref("");
-const searchname=ref("")
+
 
 // //searchbox start
 // const searchbyname=computed(()=>{
@@ -28,12 +28,7 @@ const searchname=ref("")
 const itemsPerPage=ref(10);
 const currentPage=ref(1);
 const totalPages = ref(1);
-// const paginatedStaffList=computed(()=>{
-//   const startIndex=(currentPage.value-1)*itemsPerPage.value
-//   const endIndex = startIndex + itemsPerPage.value;
-//   return staffstore.state.stafflist.slice(startIndex,endIndex)
-// })
-
+const searchname=ref("")
 const paginatedAndFilteredStaffList = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage.value;
   const endIndex = startIndex + itemsPerPage.value;

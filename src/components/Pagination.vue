@@ -14,6 +14,8 @@
 <script setup>
 import { ref, defineProps } from 'vue';
 
+// parent page ကနေပြီးတော့ အောက်က currentPage,totalPages and goToPage တွေကို ထဲ့ပေးတာကိုပြန်ဖမ်းတာ
+ 
 const { currentPage, totalPages, goToPage } = defineProps(['currentPage', 'totalPages', 'goToPage']);
 </script>
 
