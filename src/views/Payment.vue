@@ -20,7 +20,7 @@
       <div class="col-1">{{ staff.debt }}</div>
       <!-- addReservation component ဆီကို props နဲ့ staffid ကိုပေးလိုက်တယ် ဟိုဖက်က defineProps နဲ့ပြန်ဖမ်းရမယ် -->
       <div class="col-1"><addReservation :staffid="staff.id"/></div>
-      <div class="col-1"><button class="btn btn-light"><i class="fa-regular text-success fa-square-plus fs-2"></i></button></div>
+      <div class="col-1"><button class="btn btn-light" @click="paymentStore.addpayment(staff.id)"><i class="fa-regular text-success fa-square-plus fs-2"></i></button></div>
     </div>
     
    </div>
@@ -43,7 +43,7 @@
     paymentStore.loadpaymentlist()
   })
   //paginate start
-  const itemsPerPage=ref(2);
+  const itemsPerPage=ref(30);
   const currentPage=ref(1);
   const totalPages = ref(1); 
 

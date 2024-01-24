@@ -22,5 +22,16 @@ export const usePaymentStore = defineStore('payment', () => {
             state.staffpaymentlist=res.data
         })
     }
-     return {state,loadpaymentlist}
+
+    const addpayment=(staff_id)=>{
+        axios.get("http://127.0.0.1:8000/api/salary/add",{
+            params:{staff_id:staff_id},
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        })
+         loadpaymentlist()
+    }
+     return {state,loadpaymentlist,addpayment}
 })

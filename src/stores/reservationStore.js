@@ -9,8 +9,9 @@ import { useCounterStore } from "@/stores/counter";
 export const useReservationStore = defineStore('ReservationStore', () => {
   const authstore = useCounterStore();
   const reservationtoggle = ref(true) // monthly or default reservation ဟုတ်မဟုတ် ဒီtoggle နဲ့ထိန်း
-  const defaultReservation = reactive({
-    defaultlist: []
+  const Reservation = reactive({
+    defaultreservationlist: [],
+    monthlyreservationlist: [],
   });
   const reservationData = reactive({
     rareCost: "",
@@ -27,6 +28,7 @@ export const useReservationStore = defineStore('ReservationStore', () => {
     otherDeduct: "",
     staff_id: null,
     id: null,
+   
     //reservation id
   });
   const clearData = () => {
@@ -37,20 +39,63 @@ export const useReservationStore = defineStore('ReservationStore', () => {
 
   }
 
+   
+  const loadMonthlyReservation=()=>{
+    reservationtoggle.value=true;
+    Reservation.monthlyreservationlist.length=0;
+    axios.get("http://127.0.0.1:8000/api/reservation/list/monthly",{
+      headers:{
+        Authorization:`Bearer ${authstore.loginData.token}`,
+        Accept:"application/json"
+      }
+    }).then((res)=>{
+
+      Reservation.monthlyreservationlist.push(...res.data)
+
+    })
+
+  }
+
+  const searchMonthlyReservation=(date)=>{
+    console.log(date)
+    reservationtoggle.value=true;
+    Reservation.monthlyreservationlist.length=0;
+    axios.get("http://127.0.0.1:8000/api/reservation/search/monthly",{
+      params:{selectDate:date},
+      headers:{
+        Authorization:`Bearer ${authstore.loginData.token}`,
+        Accept:"application/json"
+      }
+    }).then((res)=>{
+
+      Reservation.monthlyreservationlist.push(...res.data)
+      // console.log(res.data)
+    })
+  }
+
   const loadDefaultReservation = () => {
     reservationtoggle.value = false;
-    defaultReservation.defaultlist.length = 0
+    Reservation.defaultreservationlist.length = 0
     axios.get("http://127.0.0.1:8000/api/reservation/load/default", {
       headers: {
         Authorization: `Bearer ${authstore.loginData.token}`,
         Accept: "application/json"
       }
     }).then((res) => {
-      defaultReservation.defaultlist.push(...res.data)
+      Reservation.defaultreservationlist.push(...res.data)
     })
   }
+const updateMonthlyReservation=(updateReservationData)=>{
+  axios.post("http://127.0.0.1:8000/api/reservation/update/monthly",updateReservationData,{
+    headers:{
+      Authorization:`Bearer ${authstore.loginData.token}`,
+      Accept:"application/json"
+    }
+  })
+  loadMonthlyReservation()
+}
 
-  const updateReservation=(updateReservationData)=>{
+  const updateDefaultReservation=(updateReservationData)=>{
       axios.post("http://127.0.0.1:8000/api/reservation/update/default",updateReservationData,{
         headers:{
           Authorization:`Bearer ${authstore.loginData.token}`,
@@ -117,5 +162,5 @@ export const useReservationStore = defineStore('ReservationStore', () => {
 
   }
 
-  return { reservationtoggle, reservationData, clearData, addReservation, callReservation, noti, defaultReservation ,loadDefaultReservation ,updateReservation}
+  return { reservationtoggle, reservationData,loadMonthlyReservation, clearData, addReservation, callReservation, noti, Reservation ,loadDefaultReservation ,updateDefaultReservation,updateMonthlyReservation,searchMonthlyReservation}
 })

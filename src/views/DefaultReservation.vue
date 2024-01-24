@@ -2,7 +2,7 @@
     <div class="justify-content-center ">
       <div class="col-3 d-flex  text-end me-4 align-items-center" ><i class="fa-solid fa-magnifying-glass fs-5 mx-2 "></i> <input type="text" class="form-control " v-model="searchname" name="" id=""></div>
         <div class="row shadow-sm my-2 p-3 fw-bold">
-            <div class="col-2">အမည်</div>
+            <div class="col-1">အမည်</div>
             <div class="col">ရှားပါးစရိတ်</div>
             <div class="col">ချီးမြင့်ငွေ</div>
             <div class="col">ရက်မှန်ကြေး</div>
@@ -17,20 +17,20 @@
             <div class="col">အခြားနှုတ်ငွေ</div>
             <div class="col"></div>
         </div>
-        <div class="row shadow-sm my-3 p-3  align-middle " v-for="(list ,index) in reservationStore.defaultReservation.defaultlist" :key="list.id">
-            <div class="col-2"> {{list.name}}   </div>      
-            <div class="col"><div v-if="!list.enableEdit">{{list.rareCost}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.rareCost"></div>  
-            <div class="col"><div v-if="!list.enableEdit">{{list.bonus}}</div>  <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.bonus"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.attendedBonus}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.attendedBonus"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.busFee}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.busFee"></div> 
-            <div class="col"><div v-if="!list.enableEdit">{{list.mealDeduct}}</div>  <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.mealDeduct"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.absence}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.absence"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.ssbFee}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.ssbFee"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.fine}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.fine"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.redeem}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.redeem"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.advance_salary}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.advance_salary"></div> 
-            <div class="col"><div v-if="!list.enableEdit">{{list.otherDeductLable}}</div> <input class="form-control" type="text" v-if="list.enableEdit" v-model="list.otherDeductLable"></div>
-            <div class="col"><div v-if="!list.enableEdit">{{list.otherDeduct}}</div> <input class="form-control" type="number" v-if="list.enableEdit" v-model="list.otherDeduct"></div> 
+        <div class="row shadow-sm my-3 p-3  align-middle " v-for="(list ,index) in paginatedAndFilteredDefaultList" :key="list.id">
+            <div class="col-1"> {{list.name}}   </div>      
+            <div class="col"><div v-if="!list.enableEdit">{{list.rareCost}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.rareCost"></div>  
+            <div class="col"><div v-if="!list.enableEdit">{{list.bonus}}</div>  <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.bonus"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.attendedBonus}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.attendedBonus"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.busFee}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.busFee"></div> 
+            <div class="col"><div v-if="!list.enableEdit">{{list.mealDeduct}}</div>  <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.mealDeduct"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.absence}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.absence"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.ssbFee}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.ssbFee"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.fine}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.fine"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.redeem}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.redeem"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.advance_salary}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.advance_salary"></div> 
+            <div class="col"><div v-if="!list.enableEdit">{{list.otherDeductLable}}</div> <input class="form-control form-control-sm" type="text" v-if="list.enableEdit" v-model="list.otherDeductLable"></div>
+            <div class="col"><div v-if="!list.enableEdit">{{list.otherDeduct}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.otherDeduct"></div> 
             <div class="col">
               <button class="btn btn-light me-2" v-if="!list.enableEdit"  @click="toggleEdit(list)"><i class="fa-solid fa-pen text-primary"></i></button>
               <button class="btn btn-light me-2" v-if="list.enableEdit"  @click=" saveEdit(list) "><i class="fa-solid text-success fa-clipboard-check"></i></button>
@@ -80,39 +80,28 @@ const saveEdit=(list)=>{
         otherDeduct: list.otherDeduct,
         id: list.id,
  }
- reservationStore.updateReservation(updateEdit)
+ reservationStore.updateDefaultReservation(updateEdit)
  list.enableEdit=!list.enableEdit;
 }
    // paginate start
-const itemsPerPage=ref(2);
-const currentPage=ref(1);
-const totalPages = ref(1);
+ 
 const searchname=ref("")
 
  
 
 const paginatedAndFilteredDefaultList = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage.value;
-  const endIndex = startIndex + itemsPerPage.value;
-  return reservationStore.defaultReservation.defaultlist.filter(row => {
+   
+  return reservationStore.Reservation.defaultreservationlist.filter(row => {
     const filter = searchname.value.toUpperCase();
     const textval = row.name.toUpperCase();
     return textval.indexOf(filter) > -1;
-  }).slice(startIndex, endIndex);
+  });
 });
 
-watch(() => reservationStore.defaultReservation.defaultlist, () => {
-  
-  totalPages.value=Math.ceil(reservationStore.defaultReservation.defaultlist.length / itemsPerPage.value)
-});
+ 
 
-const goToPage=(page)=>{
-  if(page >= 1 && page <= totalPages.value){
-    currentPage.value=page;
-    console.log("Current Page:", currentPage.value);
-    console.log("Total Pages:", totalPages.value);
-  }
-}
+ 
+ 
 // paginate end
 
   

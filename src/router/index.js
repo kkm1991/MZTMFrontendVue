@@ -99,7 +99,50 @@ const router = createRouter({
      }
 
     }
+    ,
+    {
+      path:"/monthlyReservation",
+      name:"MonthlyReservation",
+      component:()=>import('../views/MonthlyReservation.vue'),
+      beforeEnter:(to,from,next) =>{
+        const authstore=useCounterStore()
+        if(from.name==='Login'){
+         next();
+        }
+        else{
+          if(!authstore.loginstatus){
+            next({name:'Login'})
+          }
+          else{
+            next()
+          }
+          
+        }
+     }
 
+    }
+    ,
+    {
+      path:"/salary",
+      name:"Salary",
+      component:()=>import('../views/Salary.vue'),
+      beforeEnter:(to,from,next) =>{
+        const authstore=useCounterStore()
+        if(from.name==='Login'){
+         next();
+        }
+        else{
+          if(!authstore.loginstatus){
+            next({name:'Login'})
+          }
+          else{
+            next()
+          }
+          
+        }
+     }
+
+    }
   ]
 })
 

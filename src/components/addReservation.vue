@@ -23,7 +23,7 @@
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Reservation</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">ကြိုတင်ငွေစာရင်း Staff-id {{reservationStore.reservationData.staff_id}}</h1>
             <button
               type="button"
               class="btn-close"

@@ -21,19 +21,22 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active mx-3  ">
-          <RouterLink to="/home" class="nav-link">Home</RouterLink>
+        <li class="nav-item  mx-3  ">
+          <RouterLink to="/home" class="nav-link" exact>Home</RouterLink>
         </li>
         <li class="nav-item mx-3 ">
-          <RouterLink to="/about" class="nav-link">Salary Payment</RouterLink>
+          <RouterLink to="/about" class="nav-link" exact>Salary Payment</RouterLink>
+        </li>
+        <li class="nav-item mx-3 ">
+          <RouterLink to="/salary" class="nav-link" exact>Salary</RouterLink>
         </li>
         <li class="nav-item dropdown mx-3   ">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            Reservation
           </a>
           <ul class="dropdown-menu mx-3 ">
-            <li><a class="dropdown-item my-3 " href="#">Monthly Reservation</a></li>
-            <router-link class="dropdown-item my-3" to="/defaultReservation">Default Reservation</router-link>
+            <router-link class="dropdown-item my-3" to="/monthlyReservation" exact>Monthly Reservation</router-link>
+            <router-link class="dropdown-item my-3" to="/defaultReservation" exact>Default Reservation</router-link>
             
           </ul>
         </li>
@@ -68,5 +71,11 @@ const authstore=useCounterStore()
 <style lang="scss" scoped>
 .logoutpos {
   margin-left:auto;
+}
+.nav-item.active a.nav-link,
+.nav-item:hover a.nav-link {
+  background-color: #2fed8e; /* Change this to your desired hover background color */
+  color: #000000; /* Change this to your desired hover text color */
+  border-radius: 5px;
 }
 </style>
