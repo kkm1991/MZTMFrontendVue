@@ -92,29 +92,73 @@
             <i class="fa-solid text-success fa-clipboard-check"></i>
           </button>
         </div>
+        <div class="col">
+          
+          <button
+            class="btn btn-light me-2"
+            v-if="!confirmDialogVisible"
+            @click="deleteconfirm(list)"
+          >
+          <i class="fa-solid fa-user-minus text-danger"></i>
+          </button>
+          <ConfirmDialog v-if="confirmDialogVisible" :message="confirmmessage" :onConfirm="handleConfirm" :onCancle="handleCancel"/>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed ,reactive} from "vue";
 import { usepedStore } from "@/stores/pedStore";
 import { useSalaryStore } from "@/stores/salary";
 import { useCounterStore } from "@/stores/counter";
-import { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
+// import { toast } from "vue3-toastify";
+// import "vue3-toastify/dist/index.css";
 import axios from "axios";
-
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
+const confirmDialogVisible=ref(false);
 const date = ref(null);
 const deps = ref(null);
 const enableEdit = ref(false);
 const pedStore = usepedStore();
 const salaryStore = useSalaryStore();
 const authStore=useCounterStore();
+const deleteData=reactive({
+  reservation_id:"",
+  id:"",
+  
+})
+
 onMounted(() => {
   salaryStore.loadsalarylist();
 });
+
+
+
+const confirmmessage=`Are u sure to delete this salary` 
+const deleteconfirm=(list)=>{
+ confirmDialogVisible.value=true;
+ deleteData.reservation_id=list.reservation_id;
+ deleteData.id=list.id
+  
+}
+const handleConfirm=()=> {
+       
+      salaryStore.deletesalary(deleteData)
+       confirmDialogVisible.value = false;
+       deleteData.reservation_id=""
+       deleteData.id=""
+      
+    }
+  const  handleCancel=()=> {
+      // Handle cancel action
+      console.log('Cancelled');
+       confirmDialogVisible.value = false;
+       deleteData.reservation_id=""
+       deleteData.id=""
+
+    }
 
 const searchbydeps = computed(() => {
     const depsValue=deps.value;

@@ -35,5 +35,18 @@ export const useSalaryStore = defineStore('salary', () => {
         })
     }
 
-     return {loadsalarylist,state,searchsalarylist}
+    const deletesalary=(deletesalarydata)=>{
+        axios.get('http://127.0.0.1:8000/api/salary/delete',{
+            params: deletesalarydata,
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        }).then((res)=>{
+            loadsalarylist()
+           
+        })
+    }
+
+     return {loadsalarylist,state,searchsalarylist,deletesalary}
 })

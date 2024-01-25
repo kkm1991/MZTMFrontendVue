@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import Nav from './components/nav.vue';
+ 
 </script>
 
 <template >
@@ -12,6 +13,7 @@ import Nav from './components/nav.vue';
     <RouterView  />
   </body>
   </div>
+  
 </template>
  
 <!-- App.vue or main.js -->
