@@ -17,4 +17,14 @@ import Nav from './components/nav.vue';
 </template>
  
 <!-- App.vue or main.js -->
+<style>
+/* Add styles to hide navbar during printing */
+@media print {
+  .navbar {
+    visibility: hidden;
+    position: absolute;
+    top: -9999px; /* Move it off the screen */
+  }
+}
+</style>
  
