@@ -135,11 +135,13 @@
         <td class="col text-danger ">{{}}</td>
         <td class="col text-danger ">{{sumotherDeducte}}</td>
         <td class="col text-danger ">{{sumfinalTotal}}</td>
+        <td class="col text-danger ">{{}}</td>
+        <td class="col text-danger ">{{}}</td>
       </tfoot>
     </table>
   </div>
   <div class="row justify-content-center">
-    <div class="col-2 "><button class="btn btn-warning w-100 m-auto" @click="printbtn"><i class="fs-3 fa-solid fa-print"></i></button></div>
+    <div class="col-2 "><button class="btn btn-outline-primary w-100 my-3" @click="printbtn"><i class="fs-3 fa-solid fa-print"></i></button></div>
   </div>
   </div>
 </template>
@@ -190,6 +192,8 @@ const printbtn=()=>{
   window.print()
 }
 //salary footer အတွက်
+
+
 const createSumCompute=(propertyName)=>{
  return computed(()=>{
   return searchbydeps.value.reduce((acc,list)=>acc+(list[propertyName] || 0),0)

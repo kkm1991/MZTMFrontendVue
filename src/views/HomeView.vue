@@ -136,7 +136,7 @@ const deletestaff=(staffid)=>{
 <template>
   <main class="m-1">
     <div class="row">
-      <div class="col"> <addStaff/></div>
+      <div class="col  ">  <addStaff/></div>
       <div class="col-3 d-flex  text-end me-4 align-items-center" v-if="staffstore.iscollapsed"><i class="fa-solid fa-magnifying-glass fs-5 mx-2 "></i> <input type="text" class="form-control " v-model="searchname" name="" id=""></div>
        
     </div>

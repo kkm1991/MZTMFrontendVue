@@ -8,7 +8,7 @@
         width="200"
         height="200"
     />
-    <div class="col-md-6 col-lg-4 m-3">
+    <div class="col-md-6 col-lg-4 m-3 text-center">
       <div class="form-floating mb-3">
         <input
           type="email"
@@ -29,8 +29,8 @@
         />
         <label for="floatingPassword">Password</label>
       </div>
-
-      <button class="btn btn-primary w-100 mt-4" @click="login()">Login</button>
+      <button class="custom-btn btn-12 " @click="login()"><span>Click!</span><span>Login</span></button>
+      
     </div>
      
       

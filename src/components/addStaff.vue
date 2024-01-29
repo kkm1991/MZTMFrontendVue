@@ -1,8 +1,9 @@
 <template>
   <div>
-    <button class="btn btn-light" type="button" @click="cleardata" data-bs-target="#collapseExample"
+    
+    <button class="custom-btn btn-12 " type="button" @click="cleardata" data-bs-target="#collapseExample"
       aria-expanded="false" aria-controls="collapseExample">
-      + Add new staff
+      <span>Click!</span><span><i class="fa-solid fa-user-plus"></i></span>
     </button> 
     
     <!-- iscollapsed အပေါ်မူတည်ပြီးအဖွင့်အပိတ်လုပ်ထားတယ် -->
@@ -141,13 +142,13 @@
           <!-- address -->
 
           <div class="col-2">
-            <button class="btn btn-outline-success form-control h-100" type="submit" @click="togglecollapse"
+            <button class="btn btn-outline-success form-control h-50" type="submit" @click="togglecollapse"
               data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Save
             </button>
           </div>
           <div class="col-2">
-            <button class="btn btn-warning form-control h-100" type="button" @click="closecollapse"
+            <button class="btn btn-warning form-control h-50 w-50" type="button" @click="closecollapse"
               data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Close
             </button>

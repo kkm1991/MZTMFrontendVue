@@ -24,19 +24,24 @@
         <li class="nav-item  mx-3  ">
           <RouterLink to="/home" class="nav-link" exact>Home</RouterLink>
         </li>
-        <li class="nav-item mx-3 ">
-          <RouterLink to="/about" class="nav-link" exact>Salary Payment</RouterLink>
+     
+        <li class="nav-item dropdown   mx-3   ">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Salary
+          </a>
+          <ul class="dropdown-menu ">
+            <li><router-link  to="/about" > <button class="custom-btn btn-12"><span>Click!</span><span>Payment</span></button> </router-link></li>
+            <li><router-link  to="/salary" > <button class="custom-btn btn-12"><span>Click!</span><span>List</span></button></router-link></li>
+            <li><router-link  to="/report" ><button class="custom-btn btn-12"> <span>Click!</span><span>Report</span></button></router-link></li>
+          </ul>
         </li>
-        <li class="nav-item mx-3 ">
-          <RouterLink to="/salary" class="nav-link" exact>Salary</RouterLink>
-        </li>
-        <li class="nav-item dropdown mx-3   ">
+        <li class="nav-item dropdown   mx-3   ">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
            Reservation
           </a>
-          <ul class="dropdown-menu mx-3 ">
-            <router-link class="dropdown-item my-3" to="/monthlyReservation" exact>Monthly Reservation</router-link>
-            <router-link class="dropdown-item my-3" to="/defaultReservation" exact>Default Reservation</router-link>
+          <ul class="dropdown-menu ">
+            <li><router-link  to="/monthlyReservation" ><button class="custom-btn btn-12"><span>Click!</span> <span>Monthly</span></button></router-link></li>
+            <li><router-link  to="/defaultReservation" ><button class="custom-btn btn-12"><span>Click!</span><span>Default</span></button></router-link></li>
             
           </ul>
         </li>
@@ -45,11 +50,11 @@
             {{authstore.loginData.userInfo.name}}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Profile Edit</a></li>
+            <li><button class="custom-btn btn-12 "  > <span>Click!</span><span>Profile</span></button></li>
              
             <li><hr class="dropdown-divider"></li>
-            <li><button class="btn col-11 btn-light text-dark m-1 " v-if="authstore.loginData.userInfo.role=='admin'" @click="router.push('/register')">Register</button></li>
-            <li><button class="btn col-11 btn-outline-danger m-1 " @click="authstore.logout">Logout</button></li>
+            <li><button class="custom-btn btn-12" v-if="authstore.loginData.userInfo.role=='admin'" @click="router.push('/register')"><span>Click!</span> <span>Register</span></button></li>
+            <li><button class="custom-btn btn-12 " @click="authstore.logout"><span>Click!</span> <span>Logout</span></button></li>
           </ul>
         </li>
          
@@ -74,7 +79,7 @@ const authstore=useCounterStore()
 }
 .nav-item.active a.nav-link,
 .nav-item:hover a.nav-link {
-  background-color: #2fed8e; /* Change this to your desired hover background color */
+  background-color: #82ddc0; /* Change this to your desired hover background color */
   color: #000000; /* Change this to your desired hover text color */
   border-radius: 5px;
 }

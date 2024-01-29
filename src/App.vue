@@ -5,14 +5,15 @@ import Nav from './components/nav.vue';
 </script>
 
 <template >
-  <div class="custom-background">
+  <main  >
     <header class="mb-3"> 
       <Nav></Nav>
   </header>
-  <body class="custom-background" >
+  <body  >
     <RouterView  />
   </body>
-  </div>
+  <footer></footer>
+  </main>
   
 </template>
  

@@ -142,6 +142,27 @@ const router = createRouter({
         }
      }
 
+    },
+    {
+      path:"/report",
+      name:"Report",
+      component:()=>import('../views/SalaryReport.vue'),
+      beforeEnter:(to,from,next) =>{
+        const authstore=useCounterStore()
+        if(from.name==='Login'){
+         next();
+        }
+        else{
+          if(!authstore.loginstatus){
+            next({name:'Login'})
+          }
+          else{
+            next()
+          }
+          
+        }
+     }
+
     }
   ]
 })

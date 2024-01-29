@@ -6,7 +6,8 @@ import { useCounterStore } from './counter';
 export const useSalaryStore = defineStore('salary', () => {
     const authstore=useCounterStore()
     const state=reactive({
-        searchsalarylist:[]
+        searchsalarylist:[],
+        salaryReport:[]
     });
     
     const loadsalarylist=()=>{
@@ -48,5 +49,17 @@ export const useSalaryStore = defineStore('salary', () => {
         })
     }
 
-     return {loadsalarylist,state,searchsalarylist,deletesalary}
+    const salaryReport=(selectDate)=>{
+        state.salaryReport.length=0
+        axios.get("http://127.0.0.1:8000/api/salary/report",{
+            params:{monthPicker:selectDate},
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        }).then((res)=>{
+            state.salaryReport.push(...res.data)
+        })
+    }
+     return {loadsalarylist,state,searchsalarylist,deletesalary,salaryReport}
 })

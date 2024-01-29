@@ -62,8 +62,8 @@
             <label for="floatingSelect">Department</label>
           </div>
           <div class="text-center">
-            <button class="btn btn-secondary my-4 btn-lg w-100" type="submit">
-              Register
+            <button class="custom-btn btn-12" type="submit">
+              <span>Click!</span><span>Register</span>
             </button>
           </div>
         </form>
