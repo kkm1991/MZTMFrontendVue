@@ -71,7 +71,8 @@
           
         >
         <td scope="col fw-bold  ">{{ index + 1 }}</td>
-        <td scope="col"><div  >{{ list.staff.name }}</div> </td>
+        <!-- တစ်ခါတစ်လေ ဝန်ထမ်း ကိုဖျက်လိုက်တဲ့အခါ ပြစရာမရှိရင် error တတ်တက် ၍ အဲ့ဝန်ထမ်းမရှိရင် ပြမယ် မရှိရင် တစ်မျိုးပြ -->
+        <td scope="col"><div v-if="list.staff" >{{ list.staff.name }}</div> <div v-else>Deleted Staff</div></td>
         <td scope="col"><div v-if="!list.enableEdit">{{ list.basicSalary }}</div><input type="number" class="form-control form-control-sm" v-if="list.enableEdit" v-model="list.basicSalary"></td>
         <td scope="col"><div v-if="!list.enableEdit">{{ list.rareCost }}</div><input type="number" class="form-control form-control-sm" v-if="list.enableEdit" v-model="list.rareCost"></td>
         <td scope="col"><div v-if="!list.enableEdit">{{ list.bonus }}</div><input type="number" class="form-control form-control-sm" v-if="list.enableEdit" v-model="list.bonus"></td>

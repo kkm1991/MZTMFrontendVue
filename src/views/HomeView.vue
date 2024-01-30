@@ -57,6 +57,7 @@ onMounted(() => {
       pedStore.loadpdeps(res.data);
   });
   axios.get("http://localhost:8000/api/list/positions").then((res)=>{
+    console.log(res.data)
       pedStore.loadposition(res.data);
   });
   axios.get("http://localhost:8000/api/list/educations").then((res)=>{
@@ -136,9 +137,8 @@ const deletestaff=(staffid)=>{
 <template>
   <main class="m-1">
     <div class="row">
-      <div class="col  ">  <addStaff/></div>
-      <div class="col-3 d-flex  text-end me-4 align-items-center" v-if="staffstore.iscollapsed"><i class="fa-solid fa-magnifying-glass fs-5 mx-2 "></i> <input type="text" class="form-control " v-model="searchname" name="" id=""></div>
-       
+      <div class="col"> <addStaff/></div> 
+      
     </div>
       <table class="table table-hover table-transparent text-center     ">
       <thead class="">
@@ -153,8 +153,8 @@ const deletestaff=(staffid)=>{
           <th scope="col">Position</th>
           <th scope="col">Basic Salary</th>
           <th scope="col">Debt</th>
-          <th scope="col">Status</th>
-
+          <th scope="col"> </th>
+          <th scope="col"> <input type="text" class="form-control "  placeholder="Search" v-model="searchname" name="" id=""></th>
         </tr>
       </thead>
       <tbody >
