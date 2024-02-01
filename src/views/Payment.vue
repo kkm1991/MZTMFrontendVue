@@ -20,7 +20,8 @@
       <div class="col-1">{{ staff.debt }}</div>
       <!-- addReservation component ဆီကို props နဲ့ staffid ကိုပေးလိုက်တယ် ဟိုဖက်က defineProps နဲ့ပြန်ဖမ်းရမယ် -->
       <div class="col-1"><addReservation :staffid="staff.id"/></div>
-      <div class="col-1"><button class="btn btn-light" @click="paymentStore.addpayment(staff.id,staff.depID)"><i class="fa-regular text-success fa-square-plus fs-2"></i></button></div>
+      <div class="col-1"><button class="btn " @click="paymentStore.addpayment(staff.id,staff.depID)"><i class="fa-regular text-success fa-square-plus fs-2"></i></button></div>
+    
     </div>
     
    </div>

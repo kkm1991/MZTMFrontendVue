@@ -90,14 +90,14 @@
         <td scope="col"><div  >{{ list.finalTotal=list.FirstTotal-(list.mealDeduct+list.absence+list.ssbFee+list.fine+list.redeem+list.advance_salary+list.otherDeduct)}}</div></td>
         <td scope="col actionbutton">
           <button
-            class="btn btn-light btnnotdisplay "
+            class="btn   btnnotdisplay "
             v-if="!list.enableEdit"
             @click="toggleEdit(list)"
           >
             <i class="fa-solid fa-pen text-primary"></i>
           </button>
           <button
-            class="btn btn-light  btnnotdisplay"
+            class="btn    btnnotdisplay"
             v-if="list.enableEdit"
             @click="saveEdit(list)"
           >
@@ -107,12 +107,19 @@
         </td>
          <td scope="col">
           <button
-            class="btn btn-light me-2 btnnotdisplay"
+            class="btn   me-2 btnnotdisplay"
             v-if="!confirmDialogVisible"
             @click="deleteconfirm(list)"
           >
           <i class="fa-solid fa-user-minus text-danger"></i>
           </button>
+
+         </td>
+         <td scope="col">
+           <!-- <slip :salaryId="list.id"/> -->
+           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal(list)" >
+    <i class="fa-solid fa-receipt"></i>
+</button>
          </td>
           <ConfirmDialog v-if="confirmDialogVisible" :message="confirmmessage" :onConfirm="handleConfirm" :onCancle="handleCancel"/>
         </tr>
@@ -145,6 +152,25 @@
     <div class="col-2 "><button class="btn btn-outline-primary w-100 my-3" @click="printbtn"><i class="fs-3 fa-solid fa-print"></i></button></div>
   </div>
   </div>
+
+  <!-- Modal -->
+<div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Salary Slip</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+         <div class="">အမည် - {{ modalData ? modalData.staff.name : '' }} </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script setup>
@@ -152,6 +178,7 @@ import { ref, onMounted, computed ,reactive,watch} from "vue";
 import { usepedStore } from "@/stores/pedStore";
 import { useSalaryStore } from "@/stores/salary";
 import { useCounterStore } from "@/stores/counter";
+import slip from "@/components/slip.vue";
  
 // import { toast } from "vue3-toastify";
 // import "vue3-toastify/dist/index.css";
@@ -161,7 +188,11 @@ const confirmDialogVisible=ref(false);
 const date = ref(null);
 const deps = ref(null);
 const depstitle=ref("")
+const modalData=ref(null);
 
+const openModal=(data)=>{
+  modalData.value=data
+}
 
 const enableEdit = ref(false);
 const pedStore = usepedStore();

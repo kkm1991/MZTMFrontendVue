@@ -24,7 +24,7 @@
 
      <!-- CRUD position,education,department start -->
     <div class="collapse" id="collapseExample2">
-      <div class="row p-3 ">
+      <div class="row p-3  ">
         <div class="col">
           <div class="fw-bold text-center mb-2">Departments List</div>
           <div class="card card-body ">
@@ -33,7 +33,7 @@
               <div class="col-4 "><i class="fa-solid text-success fa-square-plus fs-2" @click="adddeps"></i></div>
             </div>
             <div class="row p-2 shadow-sm align-middle" v-for="(dep,index) in pedStore.state.deps" :key="dep.id">
-                  <div class="col-1">{{ dep.id }}</div>
+                  <div class="col-2">{{ dep.id }}</div>
                   <div class="col"><div class="" v-if="!dep.edittoggle">{{ dep.title }}</div> <div class="form-control" v-if="dep.edittoggle"><input type="text" v-model="dep.title"></div></div>
                   <div class="col text-end"><i v-if="!dep.edittoggle" @click="dep.edittoggle=!dep.edittoggle" class="fa-solid fa-pen text-primary me-3"></i>    <i v-if="dep.edittoggle" @click="editdepbtn(dep)" class="fa-regular text-success fa-circle-check me-3"></i>    <i class="fa-solid fa-trash text-danger" @click="pedStore.deletedeps(dep.id)"></i></div>
             </div>

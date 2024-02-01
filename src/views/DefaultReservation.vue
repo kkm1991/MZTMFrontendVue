@@ -92,8 +92,8 @@ const searchname=ref("")
 const paginatedAndFilteredDefaultList = computed(() => {
    
   return reservationStore.Reservation.defaultreservationlist.filter(row => {
-    const filter = searchname.value.toUpperCase();
-    const textval = row.name.toUpperCase();
+    const filter = searchname.value;
+    const textval = row.name || '';
     return textval.indexOf(filter) > -1;
   });
 });
