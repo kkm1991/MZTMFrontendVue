@@ -1,6 +1,6 @@
 <template>
    
-  <div class="justify-content-center">
+  <div class="justify-content-center" id="hiddenForSlipd"  >
     <div class="row shadow-sm my-2 p-3 visiblehidden">
       <div class="col-8">
         <div class="input-group">
@@ -116,10 +116,8 @@
 
          </td>
          <td scope="col">
-           <!-- <slip :salaryId="list.id"/> -->
-           <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal(list)" >
-    <i class="fa-solid fa-receipt"></i>
-</button>
+           <slip :salaryId="list.id"   />
+           
          </td>
           <ConfirmDialog v-if="confirmDialogVisible" :message="confirmmessage" :onConfirm="handleConfirm" :onCancle="handleCancel"/>
         </tr>
@@ -153,24 +151,8 @@
   </div>
   </div>
 
-  <!-- Modal -->
-<div class="modal fade modal-sm" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Salary Slip</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-         <div class="">အမည် - {{ modalData ? modalData.staff.name : '' }} </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+ 
+
 </template>
 
 <script setup>
@@ -187,12 +169,10 @@ import ConfirmDialog from "@/components/ConfirmDialog.vue";
 const confirmDialogVisible=ref(false);
 const date = ref(null);
 const deps = ref(null);
-const depstitle=ref("")
-const modalData=ref(null);
+ 
+ 
 
-const openModal=(data)=>{
-  modalData.value=data
-}
+
 
 const enableEdit = ref(false);
 const pedStore = usepedStore();
@@ -219,13 +199,15 @@ watch(() => deps.value, (newValue) => {
   depstitle.value=selectedDep ? selectedDep.title : "";
 })
 
+ 
+
+
 
 const printbtn=()=>{
+   
   window.print()
 }
 //salary footer အတွက်
-
-
 const createSumCompute=(propertyName)=>{
  return computed(()=>{
   return searchbydeps.value.reduce((acc,list)=>acc+(list[propertyName] || 0),0)
@@ -343,6 +325,7 @@ const updatesalary=(updatedata)=>{
 @media print{
   body *{
     visibility: hidden;
+    
   }
   #print-section,
   #print-section *{
@@ -361,6 +344,8 @@ const updatesalary=(updatedata)=>{
     position: absolute;
     top: -9999px; /* Move it off the screen */
   }
+
+   
 
 }
 </style>

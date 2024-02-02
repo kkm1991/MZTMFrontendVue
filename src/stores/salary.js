@@ -7,7 +7,9 @@ export const useSalaryStore = defineStore('salary', () => {
     const authstore=useCounterStore()
     const state=reactive({
         searchsalarylist:[],
-        salaryReport:[]
+        salaryReport:[],
+        salarySlip:[],
+        hidetoggle:true//slip အတွက် salary.vue background ကိုဖျောက်ဖို.
     });
     
     const loadsalarylist=()=>{
@@ -61,5 +63,19 @@ export const useSalaryStore = defineStore('salary', () => {
             state.salaryReport.push(...res.data)
         })
     }
-     return {loadsalarylist,state,searchsalarylist,deletesalary,salaryReport}
+
+    const loadpayslip=(salaryid)=>{
+        axios.get("http://127.0.0.1:8000/api/salary/slip",{
+            params:{salaryId:salaryid},
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        }).then((res)=>{
+            state.salarySlip.length=0
+            state.salarySlip.push(res.data)
+            console.log(res.data)
+        })
+    }
+     return {loadsalarylist,state,searchsalarylist,deletesalary,salaryReport,loadpayslip}
 })
