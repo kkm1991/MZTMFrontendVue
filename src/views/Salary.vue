@@ -116,7 +116,7 @@
 
          </td>
          <td scope="col">
-           <slip :salaryId="list.id"   />
+           <slip :salaryId="list.id"/>
            
          </td>
           <ConfirmDialog v-if="confirmDialogVisible" :message="confirmmessage" :onConfirm="handleConfirm" :onCancle="handleCancel"/>
@@ -147,7 +147,7 @@
     </table>
   </div>
   <div class="row justify-content-center">
-    <div class="col-2 "><button class="btn btn-outline-primary w-100 my-3" @click="printbtn"><i class="fs-3 fa-solid fa-print"></i></button></div>
+    <div class="col-2 "><button class="btn btn-outline-primary w-100 my-3" @click="printbtnsalary"><i class="fs-3 fa-solid fa-print"></i></button></div>
   </div>
   </div>
 
@@ -169,7 +169,7 @@ import ConfirmDialog from "@/components/ConfirmDialog.vue";
 const confirmDialogVisible=ref(false);
 const date = ref(null);
 const deps = ref(null);
- 
+const depstitle=ref(null);
  
 
 
@@ -203,7 +203,7 @@ watch(() => deps.value, (newValue) => {
 
 
 
-const printbtn=()=>{
+const printbtnsalary=()=>{
    
   window.print()
 }

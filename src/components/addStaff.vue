@@ -23,11 +23,11 @@
     </button>
 
      <!-- CRUD position,education,department start -->
-    <div class="collapse" id="collapseExample2">
-      <div class="row p-3  ">
-        <div class="col">
+    <div class="collapse " id="collapseExample2">
+      <div class="row p-3   ">
+        <div class="col transparent ">
           <div class="fw-bold text-center mb-2">Departments List</div>
-          <div class="card card-body ">
+          <div class="card card-body transparent">
             <div class="row p-2 shadow-sm align-items-center "> 
               <div class="col-8"><input type="text" class="form-control me-2" v-model="newdep"></div>
               <div class="col-4 "><i class="fa-solid text-success fa-square-plus fs-2" @click="adddeps"></i></div>
@@ -39,9 +39,9 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="col transparent">
           <div class="fw-bold text-center mb-2">Positions List</div>
-          <div class="card card-body ">
+          <div class="card card-body  transparent">
             <div class="row p-2 shadow-sm align-items-center "> 
               <div class="col-8"><input type="text" class="form-control me-2" v-model="newpos"></div>
               <div class="col-4 "><i class="fa-solid text-success fa-square-plus fs-2" @click="addpos"></i></div>
@@ -53,9 +53,9 @@
             </div>
           </div>
         </div>
-        <div class="col">
+        <div class="col transparent">
           <div class="fw-bold text-center mb-2">Education List</div>
-          <div class="card card-body ">
+          <div class="card card-body  transparent">
             <div class="row p-2 shadow-sm align-items-center "> 
               <div class="col-8"><input type="text" class="form-control me-2" v-model="newedu"></div>
               <div class="col-4 "><i class="fa-solid text-success fa-square-plus fs-2" @click="addedu"></i></div>
@@ -74,7 +74,7 @@
     <!-- add staff start -->
     <!-- iscollapsed အပေါ်မူတည်ပြီးအဖွင့်အပိတ်လုပ်ထားတယ် -->
     <div id="collapseExample" :class="{ collapse: staffstore.iscollapsed }">
-      <div class="card card-body">
+      <div class="card card-body transparent">
         <!-- First row start -->
         <div class="row">
           <!-- name start -->

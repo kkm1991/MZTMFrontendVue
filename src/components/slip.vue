@@ -1,6 +1,6 @@
 <template class="print-only">
   <div class="slip-container print-only">
-    <button type="button" v-print="'#exampleModal'" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal()" >
+    <button type="button"   class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal()" >
     <i class="fa-solid fa-receipt"></i>
 </button>
 
@@ -128,17 +128,8 @@ const salaryid = defineProps(['salaryId']);
 
  
  
-const printbtn=( )=>{
-// Save the original visibility state
- 
-
-// Set the visibility to visible for the slip component
- 
-
-// Trigger the print dialog
+const printbtn=()=>{
 window.print();
-
- 
 }
 
 const openModal=()=>{
@@ -146,6 +137,8 @@ const openModal=()=>{
   salaryStore.state.hidetoggle=false
   console.log(salaryid)
 }
+
+//backend ကလာတဲ့ date formate ကို လနဲ့နှစ်ပဲလိုချင်လိုပြန်ပြောင်းထားတာ
 const formatDate=(datestring)=>{
   if(!datestring) return '';
   const date = new Date(datestring);

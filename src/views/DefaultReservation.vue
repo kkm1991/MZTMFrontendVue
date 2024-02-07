@@ -18,7 +18,7 @@
             <div class="col"></div>
         </div>
         <div class="row shadow-sm my-3 p-3  align-middle " v-for="(list ,index) in paginatedAndFilteredDefaultList" :key="list.id">
-            <div class="col-1"> {{list.name}}   </div>      
+            <div class="col-1"> {{list?.name ? list.name:"Deleted staff"}}   </div>      
             <div class="col"><div v-if="!list.enableEdit">{{list.rareCost}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.rareCost"></div>  
             <div class="col"><div v-if="!list.enableEdit">{{list.bonus}}</div>  <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.bonus"></div>
             <div class="col"><div v-if="!list.enableEdit">{{list.attendedBonus}}</div> <input class="form-control form-control-sm" type="number" v-if="list.enableEdit" v-model="list.attendedBonus"></div>

@@ -4,12 +4,15 @@ import { useStaffStore } from "@/stores/staffstore";
 import { usepedStore } from "@/stores/pedStore";
 import addStaff from "@/components/addStaff.vue";
 import Pagination from "@/components/Pagination.vue";
+import ConfirmDialog from "@/components/ConfirmDialog.vue";
+import debt from "@/components/debt.vue";
  
 import { ref, onMounted,computed,watch } from "vue";
 import axios from "axios";
 const authstore = useCounterStore();
 const staffstore = useStaffStore();
 const pedStore=usepedStore();
+
 var key = ref("");
 
 
@@ -117,12 +120,27 @@ const changestatus = (staffid, status) => {
 //change status end
 
 //delete start
-const deletestaff=(staffid)=>{
-   
-  console.log(staffid)
+const confirmDialogVisible=ref(false);
+const staff_id=ref(null)
+const staff_name=ref('')
+
+
+const deletestaff=(staff)=>{
+  confirmDialogVisible.value=true
+   staff_id.value=staff.id
+   staff_name.value=staff.name
+   console.log(confirmmessage)
+}
+
+const confirmmessage=`Are u sure to delete ${staff_name.value}`
+
+
+ 
+const handleConfirm=()=> {
+       
   axios.get('http://127.0.0.1:8000/api/staffs/delete',
   {
-    params:{id:staffid},
+    params:{id:staff_id.value},
     headers:{
     Authorization:`Bearer ${authstore.loginData.token}`,
     Accept:"application/json"
@@ -130,7 +148,19 @@ const deletestaff=(staffid)=>{
     staffstore.loadstaffslist(res.data)
 
   })
-}
+       confirmDialogVisible.value = false;
+       staff_id.value=null
+       staff_name.value=null
+    }
+
+     // Handle cancel action
+  const  handleCancel=()=> {
+     
+      console.log('Cancelled');
+       confirmDialogVisible.value = false;
+       staff_id.value=null
+       staff_name.value=null
+    }
 
 </script>
 
@@ -172,25 +202,26 @@ const deletestaff=(staffid)=>{
           <td class="align-middle">{{ staff.deptitle }}</td>
           <td class="align-middle">{{ staff.positiontitle }}</td>
           <td class="align-middle">{{ staff.basic_salary }}</td>
-          <td class="align-middle">{{ staff.debt }}</td>
+          <td class="align-middle"> <debt :debt="staff.debt" :staff_id="staff.id"/></td>
         
           
           <td class="align-middle"  >
             <button
-              class="btn btn-light"
+              class="btn  "
               v-if="staff.active_status"
               @click="changestatus(staff.id, !staff.active_status)"
             ><i class="fa-solid fa-user text-success"></i></button>
             <button
-              class="btn btn-light"
+              class="btn "
               v-else="staff.active_status"
               @click="changestatus(staff.id, !staff.active_status)"
             ><i class="fa-solid fa-user text-danger"></i></button>
           </td >
                
           <td class="align-middle" >
-            <button class="btn btn-light me-2"  v-if="authstore.loginData.userInfo.role=='admin'" @click="deletestaff(staff.id)"><i class="fa-solid fa-trash text-danger"></i></button>
-            <button class="btn btn-light"  v-if="authstore.loginData.userInfo.role=='admin'" @click="staffstore.toeditstaff(staff)"><i class="fa-solid fa-pen text-primary"></i></button>
+            <button class="btn  me-2"  v-if="authstore.loginData.userInfo.role=='admin'" @click="deletestaff(staff)"><i class="fa-solid fa-trash text-danger"></i></button>
+            <ConfirmDialog  v-if="confirmDialogVisible" :message="'Are you sure to delete '+staff_name+' profile'" :onConfirm="handleConfirm" :onCancle="handleCancel"/>
+            <button class="btn "  v-if="authstore.loginData.userInfo.role=='admin'" @click="staffstore.toeditstaff(staff)"><i class="fa-solid fa-pen text-primary"></i></button>
           </td>
         </tr>
       </tbody>

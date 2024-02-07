@@ -41,7 +41,7 @@
       :key="list.id"
     >
     <div class="col-1 fw-bold ">{{ index+1 }}</div>
-      <div class="col-2">{{ list.staff.name }}</div>
+      <div class="col-2">{{ list.staff?.name ? list.staff.name : "Deleted Staff" }}</div>
       <div class="col">
         <div v-if="!list.enableEdit">{{ list.rareCost }}</div>
         <input
