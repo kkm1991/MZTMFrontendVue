@@ -1,4 +1,4 @@
-<template>
+<template   >
     <div>
 <!-- Button trigger modal -->
 <button type="button" class="custom-btn btn-12" data-bs-toggle="modal" data-bs-target="#staticBackdrop" @click="debtStore.loadrecord(staff_id)">
@@ -7,13 +7,15 @@
 
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
+  <div class="modal-dialog modal-xl " id="print-section">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">Loan and Payment records</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"> {{ debtStore.name }} Loan and Payment records    </h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <addLoan :staff_id="debtStore.state.staffid"/>
+
         <label for="" class="d-flex fw-bold text-decoration-underline text-danger">Loan Records</label>
         <div class="row p-2 m-2 shadow-sm" v-for="(record , index) in debtStore.loanlist" :key="record.id">
           <div class="col-1">{{ index + 1 }}</div>
@@ -42,9 +44,9 @@
           <div class="col-8"> </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+      <div class="modal-footer visiblehidden">
+        <button type="button" class="custom-btn btn-12" data-bs-dismiss="modal"><span>Click!</span><span>Close</span></button>
+         
       </div>
     </div>
   </div>
@@ -54,10 +56,13 @@
 
 <script setup>
 import {useDebtStore} from '../stores/debtstore'
-const {debt,staff_id}=defineProps(['debt','staff_id'])
+import { ref,onMounted,computed } from 'vue';
+import {useStaffStore} from '../stores/staffstore'
+const staffstore=useStaffStore()
+const {debt,staff_id,index}=defineProps(['debt','staff_id','index'])
 const debtStore=useDebtStore();
+import addLoan from './addLoan.vue';
 
- 
 const formatdate=(datestring)=>{
   const date=new Date(datestring);
 
@@ -69,8 +74,11 @@ const formatdate=(datestring)=>{
     // Return the formatted date as a string
     return   `${day}-${month}-${year}`
 }
+
+ 
 </script>
 
 <style lang="scss" scoped>
-
+ 
+  
 </style>

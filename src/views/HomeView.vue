@@ -70,26 +70,8 @@ onMounted(() => {
   //welcome notification
   authstore.notification("Welcome " + authstore.loginData.userInfo.name);
 
-  const loadlistdata = {
-    key: authstore.loginData.userInfo.dep,
-  };
-  //အကယ်ရဲ့ login ဝင်ထားတဲ့သူက admin ဆိုရင်အကုန်လုံးပြမယ် user ဆိုရင် သူနဲ့ဆိုင်တဲ့ dep ရဲ့ဝန်ထမ်းလစာပေးစာရင်းပဲပြမယ်
-  if (authstore.loginData.userInfo.role == "admin") {
-    loadlistdata.key = null;
-  }
-
-  axios
-    .get("http://127.0.0.1:8000/api/staffs/list", {
-      params: loadlistdata,
-      headers: {
-        Authorization: `Bearer ${authstore.loginData.token}`,
-        Accept: "application/json",
-      },
-    })
-    .then((res) => {
-      staffstore.loadstaffslist(res.data);
-    });
-});
+  staffstore.loadstaffslist()
+})
 //onMounted end
 
 //change status start
@@ -202,7 +184,7 @@ const handleConfirm=()=> {
           <td class="align-middle">{{ staff.deptitle }}</td>
           <td class="align-middle">{{ staff.positiontitle }}</td>
           <td class="align-middle">{{ staff.basic_salary }}</td>
-          <td class="align-middle"> <debt :debt="staff.debt" :staff_id="staff.id"/></td>
+          <td class="align-middle"> <debt :debt="staff.debt" :staff_id="staff.id" :staff_name="staff.name" :index="index"/></td>
         
           
           <td class="align-middle"  >

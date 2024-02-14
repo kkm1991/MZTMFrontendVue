@@ -1,5 +1,5 @@
-<template class="print-only">
-  <div class="slip-container print-only">
+<template  >
+  <div class="slip-container  ">
     <button type="button"   class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="openModal()" >
     <i class="fa-solid fa-receipt"></i>
 </button>

@@ -289,6 +289,7 @@ const saveEdit = (list) => {
         ssbFee:list.ssbFee,
         fine:list.fine,
         redeem:list.redeem,
+        redeem_record:list.redeem_record,
         advance_salary:list.advance_salary,
         otherDeductLable:list.otherDeductLable,
         otherDeduct:list.otherDeduct,
