@@ -19,9 +19,14 @@
         <label for="" class="d-flex fw-bold text-decoration-underline text-danger">Loan Records</label>
         <div class="row p-2 m-2 shadow-sm" v-for="(record , index) in debtStore.loanlist" :key="record.id">
           <div class="col-1">{{ index + 1 }}</div>
-          <div class="col-2">{{ formatdate(record.created_at) }}</div>
-          <div class="col-1">{{ record.amount }}</div>
-          <div class="col-8">{{ record.description }}</div>
+          <div class="col-2"><div v-if="!Loanedittoggle">{{ formatdate(record.created_at) }}</div> <div v-if="Loanedittoggle"><input v-model="record.created_at" type="date" class="form-control"></div></div>
+          <div class="col-2"><div v-if="!Loanedittoggle">{{ record.amount }}</div> <div v-if="Loanedittoggle"> <input type="number" v-model="record.amount" class="form-control"> </div></div>
+          <div class="col-5"><div v-if="!Loanedittoggle">{{ record.description }}</div> <div v-if="Loanedittoggle"><input type="text"   v-model="record.description"  class="form-control"></div> </div>
+          <div class="col-2">
+            <button class="btn me-1 " v-if="!Loanedittoggle" @click="editrecord()"><i class="fa-solid fa-pen text-primary"></i></button>
+            <button class="btn me-1 " v-if="Loanedittoggle" @click="updaterecord(record)"><i class="fa-solid fa-check text-primary"></i></button>
+            <button class="btn" @click="debtStore.deleteloan(record.id)"><i class="fa-solid fa-trash text-danger"></i></button>
+          </div>
         </div>
         <div class="row  m-2 p-2 shadow-sm">
           <div class="col-1"> </div>
@@ -33,9 +38,14 @@
         <label for="" class="d-flex fw-bold text-decoration-underline text-success">Payment Record</label>
         <div class="row p-2 m-2 shadow-sm" v-for="(record , index) in debtStore.paymentlist" :key="record.id">
           <div class="col-1">{{ index + 1 }}</div>
-          <div class="col-2">{{formatdate(record.created_at)  }}</div>
-          <div class="col-1">{{ record.amount }}</div>
-          <div class="col-8">{{ record.description }}</div>
+          <div class="col-2"><div v-if="!Paymentedittoggle || record.description=='salary'">{{ formatdate(record.created_at) }}</div> <div v-if="Paymentedittoggle && record.description!=='salary'"><input v-model="record.created_at" type="date" class="form-control"></div></div>
+          <div class="col-2"><div v-if="!Paymentedittoggle || record.description=='salary'">{{ record.amount }}</div> <div v-if="Paymentedittoggle && record.description!=='salary'"> <input type="number" v-model="record.amount" class="form-control"> </div></div>
+          <div class="col-5"><div v-if="!Paymentedittoggle || record.description=='salary'">{{ record.description }}</div> <div v-if="Paymentedittoggle && record.description!=='salary'"><input type="text"   v-model="record.description"  class="form-control"></div> </div>
+          <div class="col-2" v-if="record.description!=='salary'">
+            <button class="btn me-1 " v-if="!Paymentedittoggle" @click="paymenteditrecord()"><i class="fa-solid fa-pen text-primary"></i></button>
+            <button class="btn me-1 " v-if="Paymentedittoggle" @click="paymentupdaterecord(record)"><i class="fa-solid fa-check text-primary"></i></button>
+            <button class="btn" @click="debtStore.deleteloan(record.id)"><i class="fa-solid fa-trash text-danger"></i></button>
+          </div>
         </div>
         <div class="row  m-2 p-2 shadow-sm">
           <div class="col-1"> </div>
@@ -62,6 +72,8 @@ const staffstore=useStaffStore()
 const {debt,staff_id,index}=defineProps(['debt','staff_id','index'])
 const debtStore=useDebtStore();
 import addLoan from './addLoan.vue';
+const Loanedittoggle=ref(false)
+const Paymentedittoggle=ref(false)
 
 const formatdate=(datestring)=>{
   const date=new Date(datestring);
@@ -75,6 +87,24 @@ const formatdate=(datestring)=>{
     return   `${day}-${month}-${year}`
 }
 
+const paymenteditrecord=()=>{
+  Paymentedittoggle.value=!Paymentedittoggle.value
+}
+
+const paymentupdaterecord=(record)=>{
+  debtStore.updateloan(record)
+  Paymentedittoggle.value=!Paymentedittoggle.value
+}
+
+const editrecord=()=>{
+  Loanedittoggle.value=!Loanedittoggle.value
+}
+
+const updaterecord=(record)=>{
+ 
+  debtStore.updateloan(record)
+  Loanedittoggle.value=!Loanedittoggle.value
+}
  
 </script>
 

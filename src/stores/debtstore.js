@@ -39,19 +39,55 @@ export const useDebtStore = defineStore('debt', () => {
     }
 
     const addLoan=()=>{
-         
+        
         axios.post("http://127.0.0.1:8000/api/debt/add/loan",data.loandata,{
             headers:{
                 Authorization:`Bearer ${authstore.loginData.token}`,
                 Accept:"application/json"
             }
         }).then((res)=>{
-            state.debtrecords.length=0
-          state.debtrecords.push(...res.data)
+           
+       
+          loadrecord(state.staffid)
           staffstore.loadstaffslist()
          
         }).catch((error)=>{
             authstore.errornoti(error)
+        })
+    }
+
+    const deleteloan=(loanid)=>{
+        axios.delete("http://127.0.0.1:8000/api/debt/delete/loan",{
+            params:{id:loanid},
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        }).then((res)=>{
+             
+            loadrecord(state.staffid)
+            staffstore.loadstaffslist()
+        })
+    }
+
+    const updateloan=(record)=>{
+        const updatedata={
+            id:record.id,
+            type:record.type,
+            staff_id:record.staff_id,
+            created_at:record.created_at,
+            amount:record.amount,
+            description:record.description
+        }
+        console.log(updatedata)
+        axios.patch("http://127.0.0.1:8000/api/debt/update/loan",updatedata,{
+            headers:{
+                Authorization:`Bearer ${authstore.loginData.token}`,
+                Accept:"application/json"
+            }
+        }).then((res)=>{
+            loadrecord(state.staffid)
+            staffstore.loadstaffslist()
         })
     }
 
@@ -74,5 +110,5 @@ export const useDebtStore = defineStore('debt', () => {
     const loantotal = computed(() => {
         return loanlist.value.reduce((total,list)=>total+(list['amount'] || 0),0)
     })
-     return {loadrecord ,state,loanlist,paymentlist,paymenttotal,loantotal,name,addLoan,data}
+     return {loadrecord ,state,loanlist,paymentlist,paymenttotal,loantotal,name,addLoan,data,deleteloan,updateloan}
 })
