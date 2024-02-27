@@ -18,7 +18,7 @@ export const usePaymentStore = defineStore('payment', () => {
             }
         } 
         ).then((res)=>{
-            console.log(res.data)
+            
             state.staffpaymentlist=res.data
         })
     }
@@ -31,8 +31,12 @@ export const usePaymentStore = defineStore('payment', () => {
                 Authorization:`Bearer ${authstore.loginData.token}`,
                 Accept:"application/json"
             }
+        }).then((res)=>{
+            loadpaymentlist()
+        
         })
-         loadpaymentlist()
+            
+         
     }
      return {state,loadpaymentlist,addpayment}
 })

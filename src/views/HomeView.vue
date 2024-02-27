@@ -56,14 +56,14 @@ const goToPage=(page)=>{
 
 //onMounted start
 onMounted(() => {
-  axios.get("http://localhost:8000/api/list/deps").then((res)=>{
+  axios.get("http://127.0.0.1:8000/api/list/deps").then((res)=>{
       pedStore.loadpdeps(res.data);
   });
-  axios.get("http://localhost:8000/api/list/positions").then((res)=>{
+  axios.get("http://127.0.0.1:8000/api/list/positions").then((res)=>{
     console.log(res.data)
       pedStore.loadposition(res.data);
   });
-  axios.get("http://localhost:8000/api/list/educations").then((res)=>{
+  axios.get("http://127.0.0.1:8000/api/list/educations").then((res)=>{
       pedStore.loadpeducation(res.data);
   });
 

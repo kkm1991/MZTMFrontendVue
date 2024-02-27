@@ -1,13 +1,15 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { defineStore } from 'pinia'
 import router from '@/router'
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import axios from "axios";
 import { useCounterStore } from "@/stores/counter";
+import { useStaffStore } from './staffstore';
 
 export const useReservationStore = defineStore('ReservationStore', () => {
   const authstore = useCounterStore();
+  const staffstore=useStaffStore();
   const reservationtoggle = ref(true) // monthly or default reservation ဟုတ်မဟုတ် ဒီtoggle နဲ့ထိန်း
   const Reservation = reactive({
     defaultreservationlist: [],
@@ -129,8 +131,10 @@ const updateMonthlyReservation=(updateReservationData)=>{
     })
 
   }
-
-
+ 
+const absenceCalculate=computed(()=>{
+      staff
+})
 
   const noti = (message) => {
     authstore.notification(res.message)

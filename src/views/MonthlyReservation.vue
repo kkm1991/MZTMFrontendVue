@@ -179,15 +179,18 @@ const pedStore=usepedStore()
 onMounted(() => {
   reservationStore.loadMonthlyReservation();
 });
+
 const date=ref(null)
 const deps=ref(null)
 
  
 const searchbydeps = computed(() => {
   const depsValue=deps.value;
+  //အကဲ၍ ဌာနမရွေးခဲ့ရင် reservationStore ထဲမှာရှိတဲ့ monthlyreservationlist array ထဲကဟာတွေအကုန်ပြမယ်
   if(depsValue=="" || depsValue==null){
     return reservationStore.Reservation.monthlyreservationlist;
   }
+  // ဌာနရွေးခဲ့ရင်တော့ filter လုပ်ပြီးပြတယ်
   return reservationStore.Reservation.monthlyreservationlist.filter((list)=>{
   
     if (Array.isArray(depsValue)) {
@@ -196,6 +199,8 @@ const searchbydeps = computed(() => {
   })
   
 })
+
+
 const sumOfrareCost=computed(()=>{
   return searchbydeps.value.reduce((acc,list)=>acc+(list.rareCost ||0),0);
 })

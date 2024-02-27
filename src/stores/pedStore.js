@@ -49,7 +49,7 @@ export const usepedStore = defineStore('pedstore', () => {
     }
     const editdep=(depdata)=>{
        
-        axios.patch("http://127.0.0.1:8000/api/list/edit/deps",depdata,{
+        axios.patch("http://127.0.0.1:8000api/list/edit/deps",depdata,{
             headers:{
                 Authorization:`Bearer ${authStore.loginData.token}`,
                 Accept:"application/json"

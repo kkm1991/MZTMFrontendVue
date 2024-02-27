@@ -429,7 +429,7 @@ const staffcreate = () => {
 
   console.log(staffstore.staffdata);
   axios
-    .post("http://localhost:8000/api/staffs/create", formData, {
+    .post("https://http://127.0.0.1:8000/api/staffs/create", formData, {
       headers: {
         Authorization: `Bearer ${authstore.loginData.token}`,
         Accept: "application/json",

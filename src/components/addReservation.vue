@@ -23,14 +23,16 @@
       <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">ကြိုတင်ငွေစာရင်း Staff-id {{reservationStore.reservationData.staff_id}}</h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">
+              ကြိုတင်ငွေစာရင်း Staff-id
+              {{ reservationStore.reservationData.staff_id }}
+            </h1>
             <button
               type="button"
               class="btn-close"
               data-bs-dismiss="modal"
               aria-label="Close"
               @click="reservationStore.clearData"
-             
             ></button>
           </div>
 
@@ -94,17 +96,39 @@
                 >ထမင်းဖိုးဖြတ်</label
               >
             </div>
-            <div class="form-floating mb-2">
-              <input
-                type="number"
-                class="form-control"
-                id="floatingPassword"
-                placeholder="Password"
-                v-model="reservationStore.reservationData.absence"
-              />
-              <label for="floatingPassword " class="text-danger"
-                >အလုပ်ပျက်ရက်နူတ်</label
-              >
+            <div class="row">
+              <div class="col">
+                <div class="form-floating mb-2">
+                  <input
+                    type="number"
+                    class="form-control"
+                    disabled
+                    id="floatingPassword"
+                    placeholder="Password"
+                    v-model="reservationStore.reservationData.absence"
+                   
+                  />
+                  <label for="floatingPassword " class="text-danger"
+                    >အလုပ်ပျက်ရက်နူတ်ငွေ</label
+                  >
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-floating mb-2">
+                  <input
+                    type="number"
+                    class="form-control"
+                   
+                    id="floatingPassword"
+                    placeholder="Password"
+                    v-model="absenceday" 
+                     @input="calculateabsnece"
+                  />
+                  <label for="floatingPassword " class="text-danger"
+                    >အလုပ်ပျက်ရက်</label
+                  >
+                </div>
+              </div>
             </div>
             <div class="form-floating mb-2">
               <input
@@ -183,12 +207,18 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-                  aria-label="Close"
-                  @click="reservationStore.clearData"
+              aria-label="Close"
+              @click="reservationStore.clearData"
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" @click="reservationStore.addReservation">Save</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              @click="reservationStore.addReservation"
+            >
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -197,21 +227,36 @@
 </template>
 
 <script setup>
-import { usePaymentStore } from "@/stores/paymentstore"; 
-import {useReservationStore} from "@/stores/reservationStore"
+import { usePaymentStore } from "@/stores/paymentstore";
+import { useReservationStore } from "@/stores/reservationStore";
 import { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-
+import { useStaffStore } from "@/stores/staffstore";
+import {computed,ref} from 'vue'
 //stores
 const paymentStore = usePaymentStore();
-
-const reservationStore=useReservationStore();
+const staffstore=useStaffStore();
+const absenceday=ref();
+const reservationStore = useReservationStore();
 //true ဆိုရင် monthly reservation ၊ false ဆိုရင် default reservation ကိုစာရင်းသွင်းမယ်
+
+//props ပြန်ဖမ်းတာ သူ. result က object type array type မဟုတ်ဘူး
+const staffid = defineProps(["staffid"]);
  
-//props ပြန်ဖမ်းတာ
-const staffid = defineProps(['staffid']);
- 
- 
+
+const calculateabsnece=()=>{
+  console.log(staffid)
+  const staff= staffstore.state.stafflist.find(staff=>staff.id===staffid.staffid)
+  const basics=staff.basic_salary/30
+  if (absenceday.value==null){
+
+  }
+  else{
+    reservationStore.reservationData.absence=basics*absenceday.value
+  }
+   
+}
+
 </script>
 
 <style lang="scss" scoped></style>

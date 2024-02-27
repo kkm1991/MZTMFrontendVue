@@ -33,8 +33,13 @@ export const useDebtStore = defineStore('debt', () => {
                 Accept:"application/json"
             }
         }).then((res)=>{
+         if(res.data.message){
+            console.log(res.data)
+         }
+         else{
             state.debtrecords.push(...res.data)
-           
+         }
+         
         })
     }
 
@@ -50,6 +55,11 @@ export const useDebtStore = defineStore('debt', () => {
        
           loadrecord(state.staffid)
           staffstore.loadstaffslist()
+
+          data.loandata.staff_id=null
+          data.loandata.type=null
+          data.loandata.amount=null
+          data.loandata.description=null
          
         }).catch((error)=>{
             authstore.errornoti(error)
